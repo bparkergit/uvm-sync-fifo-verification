@@ -10,7 +10,6 @@ interface fifo_if #(
     input logic rst_n
 );
 
-    // Signals
     logic              wr_en;
     logic [WIDTH-1:0]  wr_data;
     logic              rd_en;
@@ -18,7 +17,6 @@ interface fifo_if #(
     logic              full;
     logic              empty;
 
-    // Clocking blocks (recommended for driver/monitor separation)
     clocking cb_drv @(posedge clk);
         output wr_en, wr_data;
         output rd_en;
@@ -31,7 +29,6 @@ interface fifo_if #(
         input full, empty;
     endclocking
 
-    // Modports
     modport DUT (
         input  clk, rst_n,
         input  wr_en, wr_data,
@@ -50,5 +47,6 @@ interface fifo_if #(
     );
 
 endinterface
+
 
 `endif

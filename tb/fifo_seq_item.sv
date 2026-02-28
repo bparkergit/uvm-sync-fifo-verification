@@ -2,22 +2,15 @@
 class fifo_seq_item extends uvm_sequence_item;
 
     rand bit         wr_en;
-    rand bit [7:0]   wr_data;      // assuming WIDTH=8 for now
+    rand bit [7:0]   wr_data;
     rand bit         rd_en;
 
-    // For scoreboard/monitor to capture results
     bit [7:0]        rd_data;
     bit              full;
     bit              empty;
 
-    // Constraints
     constraint valid_wr_rd {
-        !(wr_en && rd_en);           // optional: avoid simultaneous wr+rd for simplicity
-    }
-
-    constraint reset_behavior {
-        soft wr_en == 0;
-        soft rd_en == 0;
+        !(wr_en && rd_en);
     }
 
     `uvm_object_utils_begin(fifo_seq_item)

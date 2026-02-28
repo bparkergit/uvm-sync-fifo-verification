@@ -6,44 +6,64 @@ import fifo_pkg::*;
 
 module fifo_tb_top;
 
-    // Parameters (match DUT)
     parameter int DEPTH = 16;
     parameter int WIDTH = 8;
 
-    // Clock and reset
     logic clk = 0;
     logic rst_n = 0;
 
     always #5 clk = ~clk;
 
-    // Interface instance
     fifo_if #(.DEPTH(DEPTH), .WIDTH(WIDTH)) fifo_if_inst (.clk(clk), .rst_n(rst_n));
 
-    // DUT instance
     sync_fifo #(
         .DEPTH(DEPTH),
         .WIDTH(WIDTH)
     ) dut (
-        .clk(clk),
-        .rst_n(rst_n),
-        .wr_en(fifo_if_inst.wr_en),
-        .wr_data(fifo_if_inst.wr_data),
-        .rd_en(fifo_if_inst.rd_en),
-        .rd_data(fifo_if_inst.rd_data),
-        .full(fifo_if_inst.full),
-        .empty(fifo_if_inst.empty)
+        .clk     (clk),
+        .rst_n   (rst_n),
+        .wr_en   (fifo_if_inst.wr_en),
+        .wr_data (fifo_if_inst.wr_data),
+        .rd_en   (fifo_if_inst.rd_en),
+        .rd_data (fifo_if_inst.rd_data),
+        .full    (fifo_if_inst.full),
+        .empty   (fifo_if_inst.empty)
     );
 
-    // UVM initial block
+    // Reset generation
     initial begin
-        uvm_config_db #(virtual fifo_if #(.DEPTH(DEPTH), .WIDTH(WIDTH)))::set(null, "uvm_test_top.env.agent.*", "vif", fifo_if_inst);
-        run_test("fifo_base_test");  // we'll create this next
+        rst_n = 0;
+        #40;
+        rst_n = 1;
     end
 
-    // Optional: dump waves
+    // UVM + waveform dump
     initial begin
-        $dumpfile("fifo_uvm.vcd");
-        $dumpvars(0, fifo_tb_top);
+        // Set interface for driver
+        uvm_config_db #(virtual fifo_if.DRIVER)::set(
+            null,
+            "uvm_test_top.env.agent.drv",
+            "vif",
+            fifo_if_inst
+        );
+
+        // Optional: also set for test if needed
+        uvm_config_db #(virtual fifo_if)::set(
+            null,
+            "uvm_test_top",
+            "vif",
+            fifo_if_inst
+        );
+
+        run_test("fifo_base_test");
+    end
+
+    // Use WLF format (recommended for Questa/ModelSim)
+    initial begin
+        $wlfdumpvars(0, fifo_tb_top);   // dumps everything
+        // If you prefer VCD:
+         $dumpfile("fifo_uvm.vcd");
+         $dumpvars(0, fifo_tb_top);
     end
 
 endmodule
