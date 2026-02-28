@@ -8,8 +8,8 @@ UVM testbench for a 16-deep synchronous FIFO (8/32-bit data width).
 - `sim/`       : Scripts/Makefile for running simulations
 
 ## Status
-- [ ] DUT complete
-- [ ] Basic UVM env
+- [X] DUT complete
+- [X] Basic UVM env
 - [ ] Coverage & scoreboard
 
 Tools: Questa/VCS/EDA Playground
