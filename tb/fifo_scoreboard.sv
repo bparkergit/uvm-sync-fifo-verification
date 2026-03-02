@@ -46,7 +46,13 @@
           end
           
    		  expected = model_q.pop_front();
-          
+          // Check for X/Z on read data
+          if ($isunknown(txn.rd_data)) begin
+            `uvm_error("X_DETECTED",
+              $sformatf("Read data contains X/Z: %0h", txn.rd_data))
+            return;
+          end
+
           if (txn.rd_data !== expected) begin
             `uvm_error("DATA_MISMATCH",$sformatf("Expected %0h Got %0h", expected, txn.rd_data))
 		  end
