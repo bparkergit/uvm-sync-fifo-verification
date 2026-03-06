@@ -1,5 +1,5 @@
 # UVM Synchronous FIFO Verification
-![content _centered](https://github.com/user-attachments/assets/c213f799-1376-4cf5-9093-6219370d7220)
+![content _centered](https://github.com/user-attachments/assets/b82fbde3-57db-42ea-ac36-25c75682d5a5)
 
 UVM testbench for a 16-deep synchronous FIFO (8-bit data width).
 ![Alt text](images/fifo_test1.png)
