@@ -2,6 +2,16 @@
 
 UVM testbench for a 16-deep synchronous FIFO (8-bit data width).
 ![Alt text](images/fifo_test1.png)
+
+Coverpoints: 
+        wr_en
+        rd_en 
+        full
+        empty
+        cross wr_en, full
+        cross rd_en, empty
+    
+Functional coverage: 100%
 ## Structure
 - `rtl/`       : DUT (sync_fifo.sv)
 - `tb/`        : UVM components (interface, package, top, tests)
@@ -10,6 +20,6 @@ UVM testbench for a 16-deep synchronous FIFO (8-bit data width).
 ## Status
 - [X] DUT complete
 - [X] Basic UVM env
-- [ ] Coverage & scoreboard
+- [X] Coverage & scoreboard
 
 Tools: Questa/VCS/EDA Playground
