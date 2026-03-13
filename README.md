@@ -2,7 +2,7 @@
 ![content _centered](https://github.com/user-attachments/assets/b82fbde3-57db-42ea-ac36-25c75682d5a5)
 
 UVM testbench for a 16-deep synchronous FIFO (8-bit data width).
-![Alt text](images/fifo_test1.png)
+![BLOCK DIAGRAM](images/fifo_test1.png)
 
 ### Coverpoints
 
@@ -15,6 +15,9 @@ UVM testbench for a 16-deep synchronous FIFO (8-bit data width).
 
     
 Functional coverage: 100%
+![coverage](images/fifo_coverage.png)
+
+
 ## Structure
 - `rtl/`       : DUT (sync_fifo.sv)
 - `tb/`        : UVM components (interface, package, top, tests)
